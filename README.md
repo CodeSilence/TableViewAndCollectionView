@@ -2,17 +2,18 @@
 - - -
 ![scroll.gif](http://upload-images.jianshu.io/upload_images/1157148-5e079f6449172684.gif?imageMogr2/auto-orient/strip)
 
-#####实现 tableView与 CollectionView联动 主要分两种状况
+##### 实现 tableView与 CollectionView联动 主要分两种状况
 - 点击 左侧 TableView.cell 让右侧 CollectionView 滚到对应位置
 - 滑动 右侧 CollectionView 让左侧 TableView.cell 滚到对应位置
 
-#####实现
-######1.初始化
-```
+##### 实现
+###### 1.初始化
+```Objective-C
 // 记录滚动的方向,默认：YES,向下
 @property(assign,nonatomic) BOOL isScrollDown;
 ```
-```
+
+```Objective-C
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -20,8 +21,9 @@
     [self.leftTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
 }
 ```
-######2.点击 左侧 cell 让右侧 CollectionView 滚到对应位置
-```
+
+###### 2.点击 左侧 cell 让右侧 CollectionView 滚到对应位置
+```Objective-C
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     // 点击cell，UITableView滚动到相应的row
@@ -36,8 +38,9 @@
      [self.rightCollectionView setContentOffset:CGPointMake(0, attributes.frame.origin.y - self.rightCollectionView.contentInset.top) animated:YES];
 }
 ```
-######3.滑动 右侧 CollectionView 让左侧 tableView 滚到对应位置
-```
+
+###### 3.滑动 右侧 CollectionView 让左侧 tableView 滚到对应位置
+```Objective-C
 // 获取CollectionView的滚动方向，是向上还是向下
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 
@@ -49,7 +52,8 @@
     }
 }
 ```
-```
+
+```Objective-C
 // CollectionView分区标题即将展示
 - (void)collectionView:(UICollectionView *)collectionView willDisplaySupplementaryView:(UICollectionReusableView *)view forElementKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath {
     // 当前CollectionView滚动的方向向上，CollectionView是用户拖拽而产生滚动的（主要是判断CollectionView是用户拖拽而滚动的，还是点击TableView而滚动的）
@@ -72,14 +76,15 @@
     [self.leftTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:YES scrollPosition:UITableViewScrollPositionMiddle];
 }
 ```
-######4.处理点击状态栏滚动
-```
+
+###### 4.处理点击状态栏滚动
+```Objective-C
 // 处理点击状态栏滑动
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
     [self selectRowAtIndexPath:0];
 }
 ```
 
-###建议 & 支持
+### 建议 & 支持
 - - -
 如有有什么问题请[联系我](http://www.jianshu.com/u/34e83a7106ae)
